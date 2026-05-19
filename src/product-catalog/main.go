@@ -315,7 +315,7 @@ func createClient(ctx context.Context, svcAddr string) (*grpc.ClientConn, error)
 		grpc.WithStatsHandler(otelgrpc.NewClientHandler()),
 	)
 }
- #file:///c%3A/Users/JAGANADHAM/Projects/ultimate-devops-project-demo/src/product-catalog/main.go
+
 
 
 
