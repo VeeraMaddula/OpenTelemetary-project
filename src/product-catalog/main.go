@@ -316,7 +316,6 @@ func createClient(ctx context.Context, svcAddr string) (*grpc.ClientConn, error)
 	)
 }
 
-
-
+#go:generate go run gen_testdata.go
 
 
