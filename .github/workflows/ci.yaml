@@ -10,6 +10,11 @@ on:
         - main
         paths:
         - 'src/product-catalog/**'
+    push:
+        branches:
+        - main
+        paths:
+        - 'src/product-catalog/**'
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -92,7 +97,7 @@ jobs:
 
         - name: Update tag in kubernetes deployment manifest
           run: | 
-               sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}|" kubernetes/productcatalog/deploy.yaml
+               sed -i "s|image: .*/product-catalog:.*|image: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}|" kubernetes/productcatalog/deploy.yaml
         
         - name: Commit and push changes
           run: |
@@ -101,6 +106,38 @@ jobs:
             git add kubernetes/productcatalog/deploy.yaml
             git commit -m "[CI]: Update product catalog image tag"
             git push origin HEAD:main -f
+
+    deploy:
+      runs-on: ubuntu-latest
+      needs: updatek8s
+      if: github.event_name == 'push' # only depoly on merge, not on PR
+
+      steps:
+        - name: checkout code
+          uses: actions/checkout@v4
+          
+
+        - name: configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-west-2
+
+
+        - name: Update Kubeconfig
+          run: |
+            aws eks update-kubeconfig \
+              --name demo-eks-cluster \
+              --region us-west-2
+
+        - name: Deploy to EKS
+          run: |
+            kubectl apply -f kubernetes/productcatalog/deploy.yaml 
+            kubectl rollout status deployment/product-catalog -n otel-demo
+
+
+
 
         
         
