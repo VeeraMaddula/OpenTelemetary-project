@@ -806,6 +806,7 @@ services:
     ports:
       - "${OTEL_COLLECTOR_PORT_GRPC}"
       - "${OTEL_COLLECTOR_PORT_HTTP}"
+      - "8888:8888" # for receiving metrics from the load generator when using the Prometheus exporter
     depends_on:
       jaeger:
         condition: service_started
