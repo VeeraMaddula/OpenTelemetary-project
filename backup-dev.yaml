@@ -1,0 +1,596 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    generateName: service-a-deployment-7876f864bb-
+    labels:
+      app: service-a-deployment
+      pod-template-hash: 7876f864bb
+    name: service-a-deployment-7876f864bb-42q5t
+    namespace: dev
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: service-a-deployment-7876f864bb
+      uid: b8954ca8-3d17-419f-bb2d-37d2d24fb7a5
+    resourceVersion: "4433905"
+    uid: 9a9cdaac-4811-4531-9d24-55b25acf456e
+  spec:
+    containers:
+    - env:
+      - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+        value: http://jaeger-collector.tracing:14268/api/traces
+      - name: SERVICE_B_URI
+        value: http://b-service.dev
+      image: abhishekf5/demoservice-a:v
+      imagePullPolicy: Always
+      name: service-a
+      ports:
+      - containerPort: 3001
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-7wkdv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-10-0-12-157.us-west-2.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-7wkdv
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:57:02Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:57:02Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:57:02Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://3db7541fa63a569dbe3daa0826343367a1a1818609f6980a3796e68054837629
+      image: docker.io/abhishekf5/demoservice-a:v
+      imageID: docker.io/abhishekf5/demoservice-a@sha256:0db99db77b8f66e5ed3752b1be13bc056a3f0e196388a9ed6b8b4a4d3df6af72
+      lastState: {}
+      name: service-a
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-06-02T19:57:01Z"
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-7wkdv
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 10.0.12.157
+    hostIPs:
+    - ip: 10.0.12.157
+    phase: Running
+    podIP: 10.0.12.39
+    podIPs:
+    - ip: 10.0.12.39
+    qosClass: BestEffort
+    startTime: "2026-06-02T19:56:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    generateName: service-b-deployment-5d89868764-
+    labels:
+      app: service-b-deployment
+      pod-template-hash: 5d89868764
+    name: service-b-deployment-5d89868764-pzq4k
+    namespace: dev
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: service-b-deployment-5d89868764
+      uid: b96e9bbb-9e8d-4d2b-88c7-aa83be26664c
+    resourceVersion: "4433826"
+    uid: aa160a4f-f4a3-4806-9b07-60420b8708a1
+  spec:
+    containers:
+    - env:
+      - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+        value: http://jaeger-collector.tracing:14268/api/traces
+      image: abhishekf5/demoservice-a:v
+      imagePullPolicy: Always
+      name: service-b
+      ports:
+      - containerPort: 3002
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-kv9xp
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-10-0-11-46.us-west-2.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-kv9xp
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:41Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:41Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:41Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-06-02T19:56:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://81ab4fd03345991ac6d7320068221981a24317d5a7d6f57defe58630347026b8
+      image: docker.io/abhishekf5/demoservice-a:v
+      imageID: docker.io/abhishekf5/demoservice-a@sha256:0db99db77b8f66e5ed3752b1be13bc056a3f0e196388a9ed6b8b4a4d3df6af72
+      lastState: {}
+      name: service-b
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-06-02T19:56:41Z"
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-kv9xp
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 10.0.11.46
+    hostIPs:
+    - ip: 10.0.11.46
+    phase: Running
+    podIP: 10.0.11.190
+    podIPs:
+    - ip: 10.0.11.190
+    qosClass: BestEffort
+    startTime: "2026-06-02T19:56:34Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"a-service","job":"node-api"},"name":"a-service","namespace":"dev"},"spec":{"ports":[{"name":"a-service-port","port":80,"protocol":"TCP","targetPort":3001}],"selector":{"app":"service-a-deployment"},"type":"LoadBalancer"}}
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    finalizers:
+    - service.k8s.aws/resources
+    labels:
+      app: a-service
+      job: node-api
+    name: a-service
+    namespace: dev
+    resourceVersion: "4433802"
+    uid: e4d1de08-070d-4b6f-a13e-c162ba411a04
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 172.20.178.3
+    clusterIPs:
+    - 172.20.178.3
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    loadBalancerClass: service.k8s.aws/nlb
+    ports:
+    - name: a-service-port
+      nodePort: 31041
+      port: 80
+      protocol: TCP
+      targetPort: 3001
+    selector:
+      app: service-a-deployment
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - hostname: k8s-dev-aservice-acc069525b-0bba0592fdd86414.elb.us-west-2.amazonaws.com
+        ports:
+        - port: 80
+          protocol: TCP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"b-service","job":"node-api"},"name":"b-service","namespace":"dev"},"spec":{"ports":[{"name":"b-service-port","port":80,"protocol":"TCP","targetPort":3002}],"selector":{"app":"service-b-deployment"}}}
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    labels:
+      app: b-service
+      job: node-api
+    name: b-service
+    namespace: dev
+    resourceVersion: "4433761"
+    uid: cc7cbce4-d5f5-4652-a2f6-559206b959a2
+  spec:
+    clusterIP: 172.20.173.195
+    clusterIPs:
+    - 172.20.173.195
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: b-service-port
+      port: 80
+      protocol: TCP
+      targetPort: 3002
+    selector:
+      app: service-b-deployment
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"service-a-deployment"},"name":"service-a-deployment","namespace":"dev"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"service-a-deployment"}},"template":{"metadata":{"labels":{"app":"service-a-deployment"}},"spec":{"containers":[{"env":[{"name":"OTEL_EXPORTER_JAEGER_ENDPOINT","value":"http://jaeger-collector.tracing:14268/api/traces"},{"name":"SERVICE_B_URI","value":"http://b-service.dev"}],"image":"abhishekf5/demoservice-a:v","imagePullPolicy":"Always","name":"service-a","ports":[{"containerPort":3001}]}]}}}}
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    generation: 1
+    labels:
+      app: service-a-deployment
+    name: service-a-deployment
+    namespace: dev
+    resourceVersion: "4433909"
+    uid: 66c1aa53-d2fd-466a-a094-42cd99687982
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: service-a-deployment
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: service-a-deployment
+      spec:
+        containers:
+        - env:
+          - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+            value: http://jaeger-collector.tracing:14268/api/traces
+          - name: SERVICE_B_URI
+            value: http://b-service.dev
+          image: abhishekf5/demoservice-a:v
+          imagePullPolicy: Always
+          name: service-a
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-06-02T19:57:02Z"
+      lastUpdateTime: "2026-06-02T19:57:02Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-06-02T19:56:34Z"
+      lastUpdateTime: "2026-06-02T19:57:02Z"
+      message: ReplicaSet "service-a-deployment-7876f864bb" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"service-b-deployment"},"name":"service-b-deployment","namespace":"dev"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"service-b-deployment"}},"template":{"metadata":{"labels":{"app":"service-b-deployment"}},"spec":{"containers":[{"env":[{"name":"OTEL_EXPORTER_JAEGER_ENDPOINT","value":"http://jaeger-collector.tracing:14268/api/traces"}],"image":"abhishekf5/demoservice-a:v","imagePullPolicy":"Always","name":"service-b","ports":[{"containerPort":3002}]}]}}}}
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    generation: 1
+    labels:
+      app: service-b-deployment
+    name: service-b-deployment
+    namespace: dev
+    resourceVersion: "4433830"
+    uid: 720d55bf-4911-4aa1-85b8-17f492114b11
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: service-b-deployment
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: service-b-deployment
+      spec:
+        containers:
+        - env:
+          - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+            value: http://jaeger-collector.tracing:14268/api/traces
+          image: abhishekf5/demoservice-a:v
+          imagePullPolicy: Always
+          name: service-b
+          ports:
+          - containerPort: 3002
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-06-02T19:56:41Z"
+      lastUpdateTime: "2026-06-02T19:56:41Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-06-02T19:56:34Z"
+      lastUpdateTime: "2026-06-02T19:56:41Z"
+      message: ReplicaSet "service-b-deployment-5d89868764" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    generation: 1
+    labels:
+      app: service-a-deployment
+      pod-template-hash: 7876f864bb
+    name: service-a-deployment-7876f864bb
+    namespace: dev
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: service-a-deployment
+      uid: 66c1aa53-d2fd-466a-a094-42cd99687982
+    resourceVersion: "4433908"
+    uid: b8954ca8-3d17-419f-bb2d-37d2d24fb7a5
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: service-a-deployment
+        pod-template-hash: 7876f864bb
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: service-a-deployment
+          pod-template-hash: 7876f864bb
+      spec:
+        containers:
+        - env:
+          - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+            value: http://jaeger-collector.tracing:14268/api/traces
+          - name: SERVICE_B_URI
+            value: http://b-service.dev
+          image: abhishekf5/demoservice-a:v
+          imagePullPolicy: Always
+          name: service-a
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-06-02T19:56:34Z"
+    generation: 1
+    labels:
+      app: service-b-deployment
+      pod-template-hash: 5d89868764
+    name: service-b-deployment-5d89868764
+    namespace: dev
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: service-b-deployment
+      uid: 720d55bf-4911-4aa1-85b8-17f492114b11
+    resourceVersion: "4433829"
+    uid: b96e9bbb-9e8d-4d2b-88c7-aa83be26664c
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: service-b-deployment
+        pod-template-hash: 5d89868764
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: service-b-deployment
+          pod-template-hash: 5d89868764
+      spec:
+        containers:
+        - env:
+          - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+            value: http://jaeger-collector.tracing:14268/api/traces
+          image: abhishekf5/demoservice-a:v
+          imagePullPolicy: Always
+          name: service-b
+          ports:
+          - containerPort: 3002
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
